@@ -5,11 +5,14 @@ import java.util.List;
 import com.frael.federacion.exceptions.UserException;
 import com.frael.federacion.model.Usuario;
 
+/*
+ * Interfaz servicio
+ */
 public interface IUsuarioService {
     
-    public Usuario guardarUsuario(Usuario arbitro);
+    public Usuario guardarUsuario(Usuario arbitro) throws UserException;
 
-    public List<Usuario> listarUsuarios();
+    public List<Usuario> listarUsuarios() throws UserException;
 
     public Usuario actualizarUsuario(Usuario neaArbitro, Integer id) throws UserException;
 

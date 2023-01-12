@@ -9,6 +9,10 @@ import com.frael.federacion.exceptions.UserException;
 import com.frael.federacion.model.Usuario;
 import com.frael.federacion.repo.UsuarioRepository;
 
+/*
+ * Servicio Usuario
+ * Conecta con el repositorio
+ */
 @Service
 public class UsuarioService implements IUsuarioService {
 
@@ -16,13 +20,20 @@ public class UsuarioService implements IUsuarioService {
     private UsuarioRepository userRepository;
 
     @Override
-    public Usuario guardarUsuario(Usuario arbitro) {
+    public Usuario guardarUsuario(Usuario arbitro) throws UserException{
 
-        return userRepository.save(arbitro);
+        Usuario nuevUsuario = userRepository.save(arbitro);
+        if(nuevUsuario.equals(null)){
+            throw new UserException("Error en guardar usuario");
+        }
+        return nuevUsuario;
     }
 
     @Override
-    public List<Usuario> listarUsuarios() {
+    public List<Usuario> listarUsuarios() throws UserException {
+        if(userRepository.findAll().isEmpty()){
+            throw new UserException("no se encontraron datos de usuarios");
+        }
         return userRepository.findAll();
     }
 

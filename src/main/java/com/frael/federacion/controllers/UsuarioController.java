@@ -17,42 +17,68 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+/*
+ * Controlador Usuario
+ */
 @RestController
-@RequestMapping("/arbitro") // mapear rutar
+@RequestMapping("/usuario") // mapear rutar
 @CrossOrigin // habilita el cors
 public class UsuarioController {
 
     @Autowired
     private UsuarioService arbitroService;
 
+    /*
+     * Guardar Usuario
+     * retorna usuario
+     */
     @PostMapping(value = "/save")
     public Usuario saveArbitro(@RequestBody Usuario arbitro) {
 
-        return arbitroService.guardarUsuario(arbitro);
+        try {
+            return arbitroService.guardarUsuario(arbitro);
+        } catch (UserException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+
     }
 
+    /*
+     * Obtener todos los usuarios
+     */
     @GetMapping(value = "/getAll")
     public List<Usuario> getArbitros() {
-        return arbitroService.listarUsuarios();
+        try {
+            return arbitroService.listarUsuarios();
+        } catch (UserException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
+    /*
+     * Actualizar un usuario
+     * 
+     * @id
+     */
     @PutMapping(value = "/update/{id}")
     public Usuario updateArbitro(@PathVariable String id, @RequestBody Usuario newArbitro) {
         try {
 
             return arbitroService.actualizarUsuario(newArbitro, Integer.parseInt(id));
         } catch (Exception e) {
-           System.out.println("Error en actualizacion del Usuario");
+            System.out.println("Error en actualizacion del Usuario: " + e.getMessage());
         }
         return null;
     }
 
     @DeleteMapping("/delete/{id}")
-    String eliminarArbitro(@PathVariable Integer id){
+    String eliminarArbitro(@PathVariable Integer id) {
         try {
             return arbitroService.eliminarUsuario(id);
         } catch (UserException e) {
-           System.out.println("Error en eliminacion del usuario");
+            System.out.println("Error en eliminacion del usuario: " + e.getMessage());
         }
         return null;
     }
