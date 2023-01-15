@@ -1,21 +1,20 @@
 package com.frael.federacion.model;
 
-import java.sql.Date;
-
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Table;
 
 /*
  * Entidad Usuario
  * 
  */
-@Entity
+
 @Table(name = "USUARIO")
-public class Usuario {
+@MappedSuperclass
+public class Usuario extends Entidad {
 
     @Id // Se lo identifica con ID
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Autoincremental
@@ -31,12 +30,7 @@ public class Usuario {
     protected String correo;
     @Column(name = "contrasenia")
     protected String contrasenia;
-    @Column(name = "estado", columnDefinition = "nvarchar default 'A'")
-    protected final char estado = 'A';
-    @Column(name = "createdAt", columnDefinition = "date default getdate()", nullable = false)
-    protected final Date createdAt = new Date(System.currentTimeMillis());
-    @Column(name = "updatedAt")
-    protected Date updateAt;
+    
 
     public Integer getId() {
         return id;
@@ -82,20 +76,5 @@ public class Usuario {
         this.contrasenia = contrasenia;
     }
 
-    public char getEstado() {
-        return estado;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public Date getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
-    }
-
+    
 }

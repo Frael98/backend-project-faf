@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.frael.federacion.exceptions.UserException;
 import com.frael.federacion.model.Usuario;
-import com.frael.federacion.repo.UsuarioRepository;
+import com.frael.federacion.repo.IUsuarioRepository;
 
 /*
  * Servicio Usuario
@@ -17,7 +17,7 @@ import com.frael.federacion.repo.UsuarioRepository;
 public class UsuarioService implements IUsuarioService {
 
     @Autowired
-    private UsuarioRepository userRepository;
+    private IUsuarioRepository userRepository;
 
     @Override
     public Usuario guardarUsuario(Usuario arbitro) throws UserException{

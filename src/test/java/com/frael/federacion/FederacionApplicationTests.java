@@ -8,6 +8,7 @@ class FederacionApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
 
 }

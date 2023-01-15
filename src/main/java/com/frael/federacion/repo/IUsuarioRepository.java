@@ -7,6 +7,6 @@ import com.frael.federacion.model.Usuario;
  * Interfaz de repositorio
  */
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 
 }
