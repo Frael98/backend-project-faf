@@ -9,7 +9,7 @@ import com.frael.federacion.exceptions.UserException;
 import com.frael.federacion.model.Usuario;
 import com.frael.federacion.repo.IUsuarioRepository;
 
-/*
+/**
  * Servicio Usuario
  * Conecta con el repositorio
  */

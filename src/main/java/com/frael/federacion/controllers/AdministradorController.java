@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
+/**
+ * REST Controlador Administrador
+ * 
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/administrador")
