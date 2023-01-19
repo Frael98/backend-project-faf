@@ -1,9 +1,6 @@
 package com.frael.federacion.model;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Table;
 
@@ -16,10 +13,6 @@ import jakarta.persistence.Table;
 @MappedSuperclass
 public class Usuario extends Entidad {
 
-    @Id // Se lo identifica con ID
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Autoincremental
-    protected Integer id;
-
     @Column(name = "nombre")
     protected String nombre;
     @Column(name = "apellido")
@@ -31,10 +24,6 @@ public class Usuario extends Entidad {
     @Column(name = "contrasenia")
     protected String contrasenia;
     
-
-    public Integer getId() {
-        return id;
-    }
 
     public String getNombre() {
         return nombre;

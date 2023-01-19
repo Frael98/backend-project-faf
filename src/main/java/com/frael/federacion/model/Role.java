@@ -7,11 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Role {
+public class Role extends Entidad {
     
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
-    protected Integer id;
+    protected Integer id_rol;
 
     @Column( name = "nombre_rol")
     protected String nombreRol;
@@ -25,7 +25,7 @@ public class Role {
     }
 
     public Integer getId() {
-        return id;
+        return id_rol;
     }
 
     

@@ -4,10 +4,18 @@ import java.sql.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 
 @Entity
 public class Arbitro extends Usuario {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Autoincremental
+    protected Integer id_arbitro;
+
     @Column(columnDefinition = "")
     protected String peso;
     @Column(columnDefinition = "")
@@ -28,6 +36,7 @@ public class Arbitro extends Usuario {
     protected String anioDebut;
     @Column(columnDefinition = "")
     protected String comite;
+    
     
     public String getPeso() {
         return peso;
@@ -88,6 +97,9 @@ public class Arbitro extends Usuario {
     }
     public void setComite(String comite) {
         this.comite = comite;
+    }
+    public Integer getId_arbitro() {
+        return id_arbitro;
     }
 
     

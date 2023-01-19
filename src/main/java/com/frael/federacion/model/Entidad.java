@@ -7,6 +7,7 @@ import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class Entidad {
+    
     @Column(name = "estado", columnDefinition = "nvarchar default 'A'")
     protected char estado = 'A';
     @Column(name = "createdAt", columnDefinition = "datetime default getdate()", nullable = false)
