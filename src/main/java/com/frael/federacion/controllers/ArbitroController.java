@@ -25,65 +25,73 @@ public class ArbitroController {
     @Autowired
     private ArbitroService arbitroService;
 
-    /*
-     * Guardar Usuario
-     * retorna usuario
+    /**
+     * Guardar Arbitro
+     * retorna Arbitro
      */
     @PostMapping(value = "/save", consumes = "application/json", produces = "application/json")
     public Arbitro saveArbitro(@RequestBody Arbitro arbitro) {
 
         try {
-            return arbitroService.guardarUsuario(arbitro);
+            return arbitroService.guardarArbitro(arbitro);
         } catch (UserException e) {
             System.out.println(e.getMessage());
         }
         return null;
-
     }
 
-    
 
-    /*
-     * Obtener todos los usuarios
+    /**
+     * Obtener todos los Arbitros
      */
     @GetMapping(value = "/getAll")
     public List<Arbitro> getArbitros() {
         try {
-            return arbitroService.listarUsuarios();
+            return arbitroService.listarArbitros();
         } catch (UserException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    /*
-     * Actualizar un usuario
+    /**
+     * Actualizar un Arbitro
      * 
      * @id
      */
     @PutMapping(value = "/update/{id}")
     public Arbitro updateArbitro(@PathVariable String id, @RequestBody Arbitro newArbitro) {
         try {
-            return arbitroService.actualizarUsuario(newArbitro, Integer.parseInt(id));
+            return arbitroService.actualizarArbitro(newArbitro, Integer.parseInt(id));
         } catch (Exception e) {
-            System.out.println("Error en actualizacion del Usuario: " + e.getMessage());
+            System.out.println("Error en actualizacion del Arbitro: " + e.getMessage());
         }
         return null;
     }
 
+    /**
+     * Ruta eliminar
+     * @param id
+     * @return mensaje
+     */
     @DeleteMapping("/delete/{id}")
     String eliminarArbitro(@PathVariable Integer id) {
         try {
-            return arbitroService.eliminarUsuario(id);
+            return arbitroService.eliminarArbitro(id);
         } catch (UserException e) {
-            System.out.println("Error en eliminacion del usuario: " + e.getMessage());
+            System.out.println("Error en eliminacion del Arbitro: " + e.getMessage());
         }
         return null;
     }
 
+    /**
+     * 
+     * @param id
+     * @return arbitro
+     */
     @GetMapping(value = "/getArbitro/{id}")
     public Arbitro getArbitro(@PathVariable Integer id) {
-        return arbitroService.obtenerUsuario(id);
+        return arbitroService.obtenerArbitro(id);
     }
     
 }

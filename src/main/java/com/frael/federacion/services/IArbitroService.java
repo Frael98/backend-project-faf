@@ -7,13 +7,13 @@ import com.frael.federacion.model.Arbitro;
 
 public interface IArbitroService {
     
-    public Arbitro guardarUsuario(Arbitro arbitro) throws UserException;
+    public Arbitro guardarArbitro(Arbitro arbitro) throws UserException;
 
-    public List<Arbitro> listarUsuarios() throws UserException;
+    public List<Arbitro> listarArbitros() throws UserException;
 
-    public Arbitro actualizarUsuario(Arbitro neaArbitro, Integer id) throws UserException;
+    public Arbitro actualizarArbitro(Arbitro neaArbitro, Integer id) throws UserException;
 
-    public String eliminarUsuario(Integer id) throws UserException;
+    public String eliminarArbitro(Integer id) throws UserException;
 
-    public Arbitro obtenerUsuario(Integer id);
+    public Arbitro obtenerArbitro(Integer id);
 }

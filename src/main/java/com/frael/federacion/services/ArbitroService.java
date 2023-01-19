@@ -17,24 +17,24 @@ public class ArbitroService implements IArbitroService {
     private IArbitroRepository arbitroRepository;
 
     @Override
-    public Arbitro guardarUsuario(Arbitro arbitro) throws UserException{
-        Arbitro nuevUsuario = arbitroRepository.save(arbitro);
-        if(nuevUsuario.equals(null)){
-            throw new UserException("Error en guardar usuario");
+    public Arbitro guardarArbitro(Arbitro arbitro) throws UserException{
+        Arbitro nuevArbitro = arbitroRepository.save(arbitro);
+        if(nuevArbitro.equals(null)){
+            throw new UserException("Error en guardar Arbitro");
         }
-        return nuevUsuario;
+        return nuevArbitro;
     }
 
     @Override
-    public List<Arbitro> listarUsuarios() throws UserException {
+    public List<Arbitro> listarArbitros() throws UserException {
         if(arbitroRepository.findAll().isEmpty()){
-            throw new UserException("no se encontraron datos de usuarios");
+            throw new UserException("no se encontraron datos de Arbitros");
         }
         return arbitroRepository.findAll();
     }
 
     @Override
-    public Arbitro actualizarUsuario(Arbitro newArbitro, Integer id) throws UserException {
+    public Arbitro actualizarArbitro(Arbitro newArbitro, Integer id) throws UserException {
 
         return arbitroRepository.findById(id).map(a -> {
             a.setNombre(newArbitro.getNombre());
@@ -51,27 +51,27 @@ public class ArbitroService implements IArbitroService {
             a.setNacionalidad(newArbitro.getNacionalidad());
             a.setPartidos(newArbitro.getPartidos());
             return arbitroRepository.save(a);
-        }).orElseThrow(() -> new UserException("Usuario no Encontrado"));
+        }).orElseThrow(() -> new UserException("Arbitro no Encontrado"));
 
     }
 
     @Override
-    public String eliminarUsuario(Integer id) throws UserException {
+    public String eliminarArbitro(Integer id) throws UserException {
         if (!arbitroRepository.existsById(id)) {
-            throw new UserException("El usuario no existe");
+            throw new UserException("El Arbitro no existe");
         }
         arbitroRepository.findById(id).map( a -> {
             a.setEstado('E');
             a.setDeleteAt(new Date(System.currentTimeMillis()));
 
             return arbitroRepository.save(a);
-        }).orElseThrow(()-> new UserException("No se pudo eliminar usuario"));
+        }).orElseThrow(()-> new UserException("No se pudo eliminar Arbitro"));
 
         return "Arbitro ELiminado con id" + id + " con exito";
     }
 
     @Override
-    public Arbitro obtenerUsuario(Integer id) {
+    public Arbitro obtenerArbitro(Integer id) {
         return arbitroRepository.findById(id).get();
     }
 }

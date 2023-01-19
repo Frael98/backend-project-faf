@@ -16,6 +16,10 @@ public class AdministradorService implements IAdministradorService {
     @Autowired
     private IAdministradorRepository admRepository;
 
+    /**
+     * @param administrador
+     * @return administrador
+     */
     @Override
     public Administrador guardarAdministrador(Administrador administrador) throws UserException {
 
@@ -26,6 +30,9 @@ public class AdministradorService implements IAdministradorService {
         return admRepository.save(administrador);
     }
 
+    /**
+     * @return Listado<Administrador>
+     */
     @Override
     public List<Administrador> listarAdministrador() throws UserException {
 
@@ -35,6 +42,14 @@ public class AdministradorService implements IAdministradorService {
         return admRepository.findAll();
     }
 
+    /**
+     * Actualiza el administrador por id
+     * 
+     * @param newAdministrador
+     * @param id
+     * 
+     * @return administrador
+     */
     @Override
     public Administrador actualizarAdministrador(Administrador newAdministrador, Integer id) throws UserException {
 
@@ -48,6 +63,11 @@ public class AdministradorService implements IAdministradorService {
         }).orElseThrow(() -> new UserException("No fue posible encontrar o no existe con id: " + id));
     }
 
+    /**
+     * @param id
+     * @return administrador
+     * @throws UserException
+    */
     @Override
     public Administrador eliminarAdministrador(Integer id) throws UserException {
 
@@ -63,15 +83,22 @@ public class AdministradorService implements IAdministradorService {
         return null;
     }
 
+    /**
+     * @param usuario
+     * @param contrasenia
+     * @return administrador
+     * 
+     * @throws UserException
+     */
     @Override
     public Administrador obtenerAdministrador(String usuario, String contrasenia) throws UserException {
 
-    return (admRepository.findByUsuario(usuario).map( e -> {
-            if(e.getUsuario().equals(usuario) && e.getContrasenia().equals(contrasenia)){
+        return (admRepository.findByUsuario(usuario).map(e -> {
+            if (e.getUsuario().equals(usuario) && e.getContrasenia().equals(contrasenia)) {
                 return e;
             }
             return null;
-        })).orElseThrow( () -> new UserException("Usuario no se encuentra en bd: "+ usuario));
+        })).orElseThrow(() -> new UserException("Usuario no se encuentra en bd: " + usuario));
     }
 
 }
