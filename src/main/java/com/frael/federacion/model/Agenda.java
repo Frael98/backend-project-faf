@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 
 @Entity
@@ -22,6 +24,10 @@ public class Agenda extends Entidad {
     protected Time horaPartido;
     @Column
     protected Date fechaPartido;
+
+    @OneToOne
+    @JoinColumn(name = "partido_id")
+    protected Partido partido_id;
 
 
 }

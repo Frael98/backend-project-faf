@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.frael.federacion.model.Administrador;
+import com.frael.federacion.model.Usuario;
 import com.frael.federacion.repo.IAdministradorRepository;
 
 
@@ -20,7 +20,7 @@ public class TestGuardar {
 
     @Test
     public void guardarUsuario(){
-        Administrador usuario = new Administrador();
+        Usuario usuario = new Usuario();
         usuario.setNombre("German");
         usuario.setApellidos("rodriguez");
         usuario.setContrasenia("dasd");

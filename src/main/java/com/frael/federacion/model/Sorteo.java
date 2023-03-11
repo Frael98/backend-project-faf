@@ -1,13 +1,38 @@
 package com.frael.federacion.model;
 
-public class Sorteo extends Entidad{
-    
-    protected Integer id_sorteo;
-    protected Arbitro arbitroEncargado;
-    protected Arbitro sustituto;
-    protected Partido partido;
+import java.sql.Date;
 
-    public String notificarArbitro(){
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+
+@Entity
+public class Sorteo extends Entidad {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Integer id_sorteo;
+
+    @OneToOne
+    @JoinColumn(name = "arbitro_id")
+    protected Arbitro arbitroEncargado;
+
+    @OneToOne
+    @JoinColumn(name = "arbitro_sustituto_id")
+    protected Arbitro arbitroSustituto;
+
+    @OneToOne
+    @JoinColumn(name = "partido_id")
+    protected Partido partido;
+    
+    @Column
+    protected Date fechaSorteo;
+
+    public String notificarArbitro() {
         return "";
     }
 }

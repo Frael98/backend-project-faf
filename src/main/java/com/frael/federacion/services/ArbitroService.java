@@ -9,17 +9,18 @@ import org.springframework.stereotype.Service;
 import com.frael.federacion.exceptions.UserException;
 import com.frael.federacion.model.Arbitro;
 import com.frael.federacion.repo.IArbitroRepository;
+import com.frael.federacion.services.Interfaces.IArbitroService;
 
 @Service
 public class ArbitroService implements IArbitroService {
-    
+
     @Autowired
     private IArbitroRepository arbitroRepository;
 
     @Override
-    public Arbitro guardarArbitro(Arbitro arbitro) throws UserException{
+    public Arbitro guardarArbitro(Arbitro arbitro) throws UserException {
         Arbitro nuevArbitro = arbitroRepository.save(arbitro);
-        if(nuevArbitro.equals(null)){
+        if (nuevArbitro.equals(null)) {
             throw new UserException("Error en guardar Arbitro");
         }
         return nuevArbitro;
@@ -27,7 +28,7 @@ public class ArbitroService implements IArbitroService {
 
     @Override
     public List<Arbitro> listarArbitros() throws UserException {
-        if(arbitroRepository.findAll().isEmpty()){
+        if (arbitroRepository.findAll().isEmpty()) {
             throw new UserException("no se encontraron datos de Arbitros");
         }
         return arbitroRepository.findAll();
@@ -42,12 +43,9 @@ public class ArbitroService implements IArbitroService {
             a.setUsuario(newArbitro.getUsuario());
             a.setCorreo(newArbitro.getCorreo());
             a.setContrasenia(newArbitro.getContrasenia());
-            a.setUpdateAt(new Date(System.currentTimeMillis()));
-            a.setAltura(newArbitro.getAltura());
-            a.setComite(newArbitro.getComite());
+            a.setUpdateAt(new Date(System.currentTimeMillis()));    
             a.setDireccion(newArbitro.getDireccion());
             a.setCategoria(newArbitro.getCategoria());
-            a.setFuncion(newArbitro.getFuncion());
             a.setNacionalidad(newArbitro.getNacionalidad());
             a.setPartidos(newArbitro.getPartidos());
             return arbitroRepository.save(a);
@@ -60,12 +58,12 @@ public class ArbitroService implements IArbitroService {
         if (!arbitroRepository.existsById(id)) {
             throw new UserException("El Arbitro no existe");
         }
-        arbitroRepository.findById(id).map( a -> {
+        arbitroRepository.findById(id).map(a -> {
             a.setEstado('E');
             a.setDeleteAt(new Date(System.currentTimeMillis()));
 
             return arbitroRepository.save(a);
-        }).orElseThrow(()-> new UserException("No se pudo eliminar Arbitro"));
+        }).orElseThrow(() -> new UserException("No se pudo eliminar Arbitro"));
 
         return "Arbitro ELiminado con id" + id + " con exito";
     }
@@ -73,5 +71,21 @@ public class ArbitroService implements IArbitroService {
     @Override
     public Arbitro obtenerArbitro(Integer id) {
         return arbitroRepository.findById(id).get();
+    }
+
+    /**
+     * Busqueda para login
+     * @param user
+     * @return Arbitro
+     * @throws UserException
+     */
+    public Arbitro obtenerArbitroSesion(Arbitro user) throws UserException {
+        return arbitroRepository.findByUsuario(user.getUsuario()).map(e -> {
+            if (e.getContrasenia().equals(user.getContrasenia())
+                    && e.getUsuario().equals(user.getUsuario())) {
+                return e;
+            }
+            return null;
+        }).orElseThrow(() -> new UserException("Arbitro no se encontro"));
     }
 }

@@ -3,6 +3,8 @@ package com.frael.federacion.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,10 +30,10 @@ public class ArbitroController {
     /**
      * Guardar Arbitro
      * retorna Arbitro
+     * @ready
      */
     @PostMapping(value = "/save", consumes = "application/json", produces = "application/json")
     public Arbitro saveArbitro(@RequestBody Arbitro arbitro) {
-
         try {
             return arbitroService.guardarArbitro(arbitro);
         } catch (UserException e) {
@@ -44,14 +46,17 @@ public class ArbitroController {
     /**
      * Obtener todos los Arbitros
      */
-    @GetMapping(value = "/getAll")
-    public List<Arbitro> getArbitros() {
-        try {
-            return arbitroService.listarArbitros();
+    @GetMapping(value = "/getArbitros")
+    public ResponseEntity<List<Arbitro>> getArbitros() {
+        List<Arbitro> lista;
+        try{
+            lista = arbitroService.listarArbitros();
+            return new ResponseEntity<List<Arbitro>>(lista, HttpStatus.OK);
         } catch (UserException e) {
+            lista = null;
             System.out.println(e.getMessage());
+            return new ResponseEntity<List<Arbitro>>(lista, HttpStatus.OK);
         }
-        return null;
     }
 
     /**
@@ -89,9 +94,17 @@ public class ArbitroController {
      * @param id
      * @return arbitro
      */
-    @GetMapping(value = "/getArbitro/{id}")
-    public Arbitro getArbitro(@PathVariable Integer id) {
-        return arbitroService.obtenerArbitro(id);
+    @PostMapping(value = "/getArbitro")
+    public ResponseEntity<Arbitro> getArbitroUsuario( @RequestBody Arbitro user) {
+        Arbitro arbitro;
+        try {
+            arbitro = arbitroService.obtenerArbitroSesion(user);
+            return new ResponseEntity<Arbitro>(arbitro, HttpStatus.OK);
+        } catch (UserException e) {
+            arbitro = null;
+            System.out.println(e.getMessage());
+            return new ResponseEntity<Arbitro>(arbitro, HttpStatus.OK);
+        }
     }
     
 }

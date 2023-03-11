@@ -1,4 +1,4 @@
-package com.frael.federacion.services;
+package com.frael.federacion.services.Interfaces;
 
 import java.util.List;
 

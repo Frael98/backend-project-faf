@@ -8,14 +8,14 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 public class Entidad {
     
-    @Column(name = "estado", columnDefinition = "nvarchar default 'A'")
-    protected char estado = 'A';
     @Column(name = "createdAt", columnDefinition = "datetime default getdate()", nullable = false)
     protected final Date createdAt = new Date(System.currentTimeMillis());
     @Column(name = "updatedAt", columnDefinition = "datetime")
-    protected Date updateAt;
+    protected Date updatedAt;
     @Column(name = "deleteAt", columnDefinition = "datetime")
-    protected Date deleteAt;
+    protected Date deletedAt;
+    @Column(name = "estado", columnDefinition = "varchar(2) default 'A'")
+    protected char estado = 'A';
 
     public char getEstado() {
         return estado;
@@ -30,15 +30,15 @@ public class Entidad {
     }
 
     public Date getUpdateAt() {
-        return updateAt;
+        return updatedAt;
     }
 
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
+    public void setUpdateAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public void setDeleteAt(Date deleteAt) {
-        this.deleteAt = deleteAt;
+    public void setDeleteAt(Date deletedAt) {
+        this.deletedAt = deletedAt;
     }
 
     

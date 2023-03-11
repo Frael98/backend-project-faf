@@ -1,69 +1,26 @@
 package com.frael.federacion.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
-/*
- * Entidad Usuario
- * 
- */
-
-@Table(name = "USUARIO")
-@MappedSuperclass
-public class Usuario extends Entidad {
-
-    @Column(name = "nombre")
-    protected String nombre;
-    @Column(name = "apellido")
-    protected String apellido;
-    @Column(name = "usuario_nombre")
-    protected String usuario;
-    @Column(name = "correo")
-    protected String correo;
-    @Column(name = "contrasenia")
-    protected String contrasenia;
+@Entity
+public class Usuario extends EUser{
     
+    @Id // Se lo identifica con ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Autoincremental
+    protected Integer id;
 
-    public String getNombre() {
-        return nombre;
+    public Integer getId() {
+        return id;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellidos() {
-        return apellido;
-    }
-
-    public void setApellidos(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
+    @OneToOne
+    @JoinColumn(name = "rol_id")
+    protected Role rol;
 
     
 }

@@ -3,91 +3,102 @@ package com.frael.federacion.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import com.frael.federacion.exceptions.UserException;
 import com.frael.federacion.model.Usuario;
 import com.frael.federacion.services.UsuarioService;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 
-/*
- * Controlador Usuario
+/**
+ * REST Controlador Administrador
+ * 
  */
 @RestController
-@RequestMapping("/usuario") // mapear rutar
-@CrossOrigin // habilita el cors
+@CrossOrigin
+@RequestMapping("/administrador")
 public class UsuarioController {
-
-    @Autowired
-    private UsuarioService arbitroService;
-
-    /*
-     * Guardar Usuario
-     * retorna usuario
-     */
-    @PostMapping(value = "/save", consumes = "application/json", produces = "application/json")
-    public Usuario saveArbitro(@RequestBody Usuario arbitro) {
-
-        try {
-            return arbitroService.guardarUsuario(arbitro);
-        } catch (UserException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-
-    }
-
     
-
-    /*
-     * Obtener todos los usuarios
+    @Autowired
+    private UsuarioService admService;
+    
+    /**
+     * 
+     * @param entity
+     * @return Administador
+     * @ready
      */
-    @GetMapping(value = "/getAll")
-    public List<Usuario> getArbitros() {
+    @PostMapping(value="/save")
+    public Usuario postMethodName(@RequestBody Usuario entity) {
+        
         try {
-            return arbitroService.listarUsuarios();
+            return admService.guardarAdministrador(entity);
         } catch (UserException e) {
-            System.out.println(e.getMessage());
+           System.out.println("Error en inserccion de administrador: "+ e.getMessage());
         }
         return null;
     }
-
-    /*
-     * Actualizar un usuario
-     * 
-     * @id
+    
+    /**
+     *
+     * @return Lista de Administradores
      */
-    @PutMapping(value = "/update/{id}")
-    public Usuario updateArbitro(@PathVariable String id, @RequestBody Usuario newArbitro) {
+    @GetMapping(value="/getAll")
+    public List<Usuario> obtenerAll() {
         try {
-
-            return arbitroService.actualizarUsuario(newArbitro, Integer.parseInt(id));
-        } catch (Exception e) {
-            System.out.println("Error en actualizacion del Usuario: " + e.getMessage());
+            return admService.listarAdministrador();
+        } catch (UserException e) {
+             System.out.println("Error en listar usuarios: "+ e.getMessage());
+        }
+        return null;
+    }
+    
+    /**
+     * 
+     * @param usuario
+     * @param adm
+     * @return Response Administrador
+     */
+    @PostMapping(value="/get/{usuario}")
+    public ResponseEntity<Usuario> obtenerAdministrador(@PathVariable String usuario, @RequestBody Usuario adm) {        
+        try {
+            adm = admService.obtenerAdministrador(usuario, adm.getContrasenia());
+            return new ResponseEntity<Usuario>(adm, HttpStatus.OK);
+        } catch (UserException e) {
+            adm = null;
+            System.out.println("Error en obtener administrador: "+ e.getMessage());
+            return new ResponseEntity<Usuario>(adm, HttpStatus.OK);
+        }
+    }
+    
+    @PutMapping(value="/update/{id}")
+    public Usuario putMethodName(@PathVariable Integer id, @RequestBody Usuario entity) {
+        
+        try {
+            return admService.actualizarAdministrador(entity, id);
+        } catch (UserException e) {
+            System.out.println("Error en actualizar administrador: "+ e.getMessage());
         }
         return null;
     }
 
     @DeleteMapping("/delete/{id}")
-    String eliminarArbitro(@PathVariable Integer id) {
+    Usuario deleteAdministrador(@PathVariable Integer id){
         try {
-            return arbitroService.eliminarUsuario(id);
+            return admService.eliminarAdministrador(id);
         } catch (UserException e) {
-            System.out.println("Error en eliminacion del usuario: " + e.getMessage());
+            System.out.println("Error en eliminar administrador: "+ e.getMessage());
         }
         return null;
     }
-
-    @GetMapping(value = "/getArbitro/{id}")
-    public Usuario getArbitro(@PathVariable Integer id) {
-        return arbitroService.obtenerUsuario(id);
-    }
-
 }

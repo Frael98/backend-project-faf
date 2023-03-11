@@ -2,12 +2,12 @@ package com.frael.federacion.model;
 
 import java.sql.Date;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -19,8 +19,11 @@ public class ActaPartido extends Entidad {
     @Column
     protected String codigoActa;
 
-    @OneToOne(mappedBy = "acta_partido", cascade = CascadeType.ALL)
-    protected Partido partido;
+    // id de partido
+    @OneToOne
+    @JoinColumn(name = "partido_id")
+    protected Partido partido_id;
+
     @Column
     protected Date fechaEmision;
     @Column

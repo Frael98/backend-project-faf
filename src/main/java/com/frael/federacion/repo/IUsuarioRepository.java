@@ -1,12 +1,12 @@
 package com.frael.federacion.repo;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import com.frael.federacion.model.Usuario;
-/*
- * Interfaz de repositorio
- */
 
 public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
+    
+    public Optional<Usuario> findByUsuario(String usuario);
 
 }

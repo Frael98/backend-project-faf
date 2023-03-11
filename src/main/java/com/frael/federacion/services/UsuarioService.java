@@ -1,5 +1,6 @@
 package com.frael.federacion.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,57 +9,97 @@ import org.springframework.stereotype.Service;
 import com.frael.federacion.exceptions.UserException;
 import com.frael.federacion.model.Usuario;
 import com.frael.federacion.repo.IUsuarioRepository;
+import com.frael.federacion.services.Interfaces.IUsuarioService;
 
-/**
- * Servicio Usuario
- * Conecta con el repositorio
- */
 @Service
 public class UsuarioService implements IUsuarioService {
 
     @Autowired
-    private IUsuarioRepository userRepository;
+    private IUsuarioRepository admRepository;
 
+    /**
+     * @param administrador
+     * @return administrador
+     */
     @Override
-    public Usuario guardarUsuario(Usuario arbitro) throws UserException{
+    public Usuario guardarAdministrador(Usuario administrador) throws UserException {
 
-        Usuario nuevUsuario = userRepository.save(arbitro);
-        if(nuevUsuario.equals(null)){
-            throw new UserException("Error en guardar usuario");
+        Usuario tmp = admRepository.save(administrador);
+        if (tmp.equals(null)) {
+            throw new UserException("Error en guardar datos");
         }
-        return nuevUsuario;
+        return admRepository.save(administrador);
     }
 
+    /**
+     * @return Listado<Administrador>
+     */
     @Override
-    public List<Usuario> listarUsuarios() throws UserException {
-        if(userRepository.findAll().isEmpty()){
-            throw new UserException("no se encontraron datos de usuarios");
+    public List<Usuario> listarAdministrador() throws UserException {
+
+        if (admRepository.findAll().isEmpty()) {
+            throw new UserException("Error en listar administradores");
         }
-        return userRepository.findAll();
+        return admRepository.findAll();
     }
 
+    /**
+     * Actualiza el administrador por id
+     * 
+     * @param newAdministrador
+     * @param id
+     * 
+     * @return administrador
+     */
     @Override
-    public Usuario actualizarUsuario(Usuario newArbitro, Integer id) throws UserException {
+    public Usuario actualizarAdministrador(Usuario newAdministrador, Integer id) throws UserException {
 
-        return userRepository.findById(id).map(a -> {
-            a.setNombre(newArbitro.getNombre());
-            return userRepository.save(a);
-        }).orElseThrow(() -> new UserException("Usuario no Encontrado"));
-
+        return admRepository.findById(id).map(e -> {
+            e.setApellidos(newAdministrador.getApellidos());
+            e.setCorreo(newAdministrador.getCorreo());
+            e.setUsuario(newAdministrador.getUsuario());
+            e.setUpdateAt(new Date(System.currentTimeMillis()));
+            e.setContrasenia(newAdministrador.getContrasenia());
+            return admRepository.save(e);
+        }).orElseThrow(() -> new UserException("No fue posible encontrar o no existe con id: " + id));
     }
 
+    /**
+     * @param id
+     * @return administrador
+     * @throws UserException
+    */
     @Override
-    public String eliminarUsuario(Integer id) throws UserException {
-        if (!userRepository.existsById(id)) {
-            throw new UserException("El usuario no existe");
+    public Usuario eliminarAdministrador(Integer id) throws UserException {
+
+        if (!admRepository.findById(id).isEmpty()) {
+
+            return admRepository.findById(id).map((e) -> {
+                e.setDeleteAt(new Date(System.currentTimeMillis()));
+                e.setEstado('E');
+
+                return admRepository.save(e);
+            }).orElseThrow(() -> new UserException("Invalido administrador con id: " + id));
         }
-        userRepository.deleteById(id);
-        return "Arbitro ELiminado con id" + id + " con exito";
+        return null;
     }
 
+    /**
+     * @param usuario
+     * @param contrasenia
+     * @return administrador
+     * 
+     * @throws UserException
+     */
     @Override
-    public Usuario obtenerUsuario(Integer id) {
-        return userRepository.findById(id).get();
+    public Usuario obtenerAdministrador(String usuario, String contrasenia) throws UserException {
+
+        return (admRepository.findByUsuario(usuario).map(e -> {
+            if (e.getUsuario().equals(usuario) && e.getContrasenia().equals(contrasenia)) {
+                return e;
+            }
+            return null;
+        })).orElseThrow(() -> new UserException("Usuario no se encuentra en bd: " + usuario));
     }
 
 }
