@@ -55,7 +55,7 @@ public class UsuarioService implements IUsuarioService {
     public Usuario actualizarAdministrador(Usuario newAdministrador, Integer id) throws UserException {
 
         return admRepository.findById(id).map(e -> {
-            e.setApellidos(newAdministrador.getApellidos());
+            e.setApellido(newAdministrador.getApellido());
             e.setCorreo(newAdministrador.getCorreo());
             e.setUsuario(newAdministrador.getUsuario());
             e.setUpdateAt(new Date(System.currentTimeMillis()));

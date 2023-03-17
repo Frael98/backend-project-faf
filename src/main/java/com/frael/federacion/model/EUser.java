@@ -33,11 +33,11 @@ public class EUser extends Entidad {
         this.nombre = nombre;
     }
 
-    public String getApellidos() {
+    public String getApellido() {
         return apellido;
     }
 
-    public void setApellidos(String apellido) {
+    public void setApellido(String apellido) {
         this.apellido = apellido;
     }
 

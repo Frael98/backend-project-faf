@@ -30,6 +30,7 @@ public class ArbitroController {
     /**
      * Guardar Arbitro
      * retorna Arbitro
+     * 
      * @ready
      */
     @PostMapping(value = "/save", consumes = "application/json", produces = "application/json")
@@ -42,14 +43,13 @@ public class ArbitroController {
         return null;
     }
 
-
     /**
      * Obtener todos los Arbitros
      */
     @GetMapping(value = "/getArbitros")
     public ResponseEntity<List<Arbitro>> getArbitros() {
         List<Arbitro> lista;
-        try{
+        try {
             lista = arbitroService.listarArbitros();
             return new ResponseEntity<List<Arbitro>>(lista, HttpStatus.OK);
         } catch (UserException e) {
@@ -76,6 +76,7 @@ public class ArbitroController {
 
     /**
      * Ruta eliminar
+     * 
      * @param id
      * @return mensaje
      */
@@ -90,12 +91,13 @@ public class ArbitroController {
     }
 
     /**
+     * Obtener arbitro inicio sesion
      * 
      * @param id
      * @return arbitro
      */
     @PostMapping(value = "/getArbitro")
-    public ResponseEntity<Arbitro> getArbitroUsuario( @RequestBody Arbitro user) {
+    public ResponseEntity<Arbitro> getArbitroUsuario(@RequestBody Arbitro user) {
         Arbitro arbitro;
         try {
             arbitro = arbitroService.obtenerArbitroSesion(user);
@@ -106,5 +108,18 @@ public class ArbitroController {
             return new ResponseEntity<Arbitro>(arbitro, HttpStatus.OK);
         }
     }
-    
+
+    @GetMapping("/getArbitro/{id}")
+    public Arbitro getArbitro(@PathVariable Integer id) {
+        Arbitro arbitro;
+        try {
+            arbitro = arbitroService.obtenerArbitro(id);
+            return arbitro;
+        } catch (UserException e) {
+            arbitro = null;
+            System.out.println(e.getMessage());
+            return arbitro;
+        }
+    }
+
 }

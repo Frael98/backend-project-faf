@@ -14,3 +14,9 @@ INSERT INTO arbitro (created_at, delete_at, estado, updated_at, apellido, contra
 ('2023-03-11', NULL, 'A', '2023-03-11', 'López', 'contraseña7', 'lopez@gmail.com', 'Gabriel', 'gabriell', 'FIFA', 'Calle Central 123', '1981-06-22', 'España', 85),
 ('2023-03-11', NULL, 'A', '2023-03-11', 'Díaz', 'contraseña8', 'diaz@gmail.com', 'Marta', 'martad', 'CONMEBOL', 'Calle Principal 456', '1990-03-01', 'Uruguay', 75),
 ('2023-03-11', NULL, 'A', '2023-03-11', 'Martínez', 'contraseña9', 'martinez@gmail.com', 'Javier', 'javierm', 'FIFA', 'Avenida Este 789', '1983-08-12', 'Argentina', 105)
+
+insert into role (created_at, delete_at, estado,updated_at,nombre_rol)
+  values (GETDATE(), null, 'A', null, 'ADMINISTRADOR');
+
+insert into usuario (created_at, delete_at, estado, updated_at, apellido, contrasenia, correo, nombre, usuario_nombre,rol_id ) values
+(GETDATE(), null, 'A', null, 'administrador','123', 'adm@gmail.com', 'Administrador', 'admin', 1);

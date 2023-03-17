@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.frael.federacion.model.Usuario;
-import com.frael.federacion.repo.IAdministradorRepository;
+import com.frael.federacion.repo.IUsuarioRepository;
 
 
 
@@ -16,19 +16,19 @@ import com.frael.federacion.repo.IAdministradorRepository;
 public class TestGuardar {
     
     @Autowired
-    IAdministradorRepository user;
+    IUsuarioRepository user;
 
     @Test
     public void guardarUsuario(){
         Usuario usuario = new Usuario();
         usuario.setNombre("German");
-        usuario.setApellidos("rodriguez");
+        usuario.setApellido("rodriguez");
         usuario.setContrasenia("dasd");
         usuario.setCorreo("dasdfddsf");
         usuario.setUsuario("fdsfffdsfsdfsdfsdf");
         
         user.save(usuario);
 
-        assertEquals("rodriguez", usuario.getApellidos());
+        assertEquals("rodriguez", usuario.getApellido());
     }
 }

@@ -24,4 +24,46 @@ public class Equipo extends Entidad{
 
     @OneToOne( mappedBy = "equipoLocal",  cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     protected Partido partido_local;
+
+    public Integer getId_equipo() {
+        return Id_equipo;
+    }
+
+    public void setId_equipo(Integer id_equipo) {
+        Id_equipo = id_equipo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public Partido getPartido_rival() {
+        return partido_rival;
+    }
+
+    public void setPartido_rival(Partido partido_rival) {
+        this.partido_rival = partido_rival;
+    }
+
+    public Partido getPartido_local() {
+        return partido_local;
+    }
+
+    public void setPartido_local(Partido partido_local) {
+        this.partido_local = partido_local;
+    }
+
+    
 }

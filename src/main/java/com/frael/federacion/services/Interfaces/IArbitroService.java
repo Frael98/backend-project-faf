@@ -15,5 +15,5 @@ public interface IArbitroService {
 
     public String eliminarArbitro(Integer id) throws UserException;
 
-    public Arbitro obtenerArbitro(Integer id);
+    public Arbitro obtenerArbitro(Integer id) throws UserException;
 }

@@ -28,10 +28,10 @@ public class ArbitroService implements IArbitroService {
 
     @Override
     public List<Arbitro> listarArbitros() throws UserException {
-        if (arbitroRepository.findAll().isEmpty()) {
+        if (arbitroRepository.findOnlyActive().isEmpty()) {
             throw new UserException("no se encontraron datos de Arbitros");
         }
-        return arbitroRepository.findAll();
+        return arbitroRepository.findOnlyActive();
     }
 
     @Override
@@ -39,11 +39,11 @@ public class ArbitroService implements IArbitroService {
 
         return arbitroRepository.findById(id).map(a -> {
             a.setNombre(newArbitro.getNombre());
-            a.setApellidos(newArbitro.getApellidos());
+            a.setApellido(newArbitro.getApellido());
             a.setUsuario(newArbitro.getUsuario());
             a.setCorreo(newArbitro.getCorreo());
             a.setContrasenia(newArbitro.getContrasenia());
-            a.setUpdateAt(new Date(System.currentTimeMillis()));    
+            a.setUpdateAt(new Date(System.currentTimeMillis()));
             a.setDireccion(newArbitro.getDireccion());
             a.setCategoria(newArbitro.getCategoria());
             a.setNacionalidad(newArbitro.getNacionalidad());
@@ -69,18 +69,21 @@ public class ArbitroService implements IArbitroService {
     }
 
     @Override
-    public Arbitro obtenerArbitro(Integer id) {
+    public Arbitro obtenerArbitro(Integer id) throws UserException {
         return arbitroRepository.findById(id).get();
     }
 
     /**
      * Busqueda para login
+     * 
      * @param user
      * @return Arbitro
      * @throws UserException
      */
     public Arbitro obtenerArbitroSesion(Arbitro user) throws UserException {
-        return arbitroRepository.findByUsuario(user.getUsuario()).map(e -> {
+        
+        return arbitroRepository.findByUsuario(user.getUsuario()).map( 
+            e -> {
             if (e.getContrasenia().equals(user.getContrasenia())
                     && e.getUsuario().equals(user.getUsuario())) {
                 return e;
