@@ -3,6 +3,7 @@ package com.frael.federacion.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import com.frael.federacion.model.Equipo;
 import com.frael.federacion.services.EquipoService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/equipo")
 public class EquipoController {
 
@@ -43,7 +45,7 @@ public class EquipoController {
      *
      * @return Lista de equipos
      */
-    @GetMapping(value = "/getAll")
+    @GetMapping(value = "/getEquipos")
     public List<Equipo> obtenerEquipos() {
         try {
             return equipoService.listarEquipo();
@@ -72,5 +74,19 @@ public class EquipoController {
         } catch (EquipoException e) {
             return null;
         }
+    }
+
+    /**
+     *
+     * @return Lista de equipos
+     */
+    @GetMapping(value = "/getEquipos/{valor}")
+    public List<Equipo> obtnerEquiposFiltro(@PathVariable String valor) {
+        try {
+            return equipoService.listarEquipoFiltro(valor);
+        } catch (EquipoException e) {
+            System.out.println("Error en listar equipos filtro: " + e.getMessage());
+        }
+        return null;
     }
 }

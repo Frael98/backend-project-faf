@@ -4,12 +4,14 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.frael.federacion.exceptions.EquipoException;
 import com.frael.federacion.model.Equipo;
 import com.frael.federacion.repo.IEquipoRepository;
 import com.frael.federacion.services.Interfaces.IEquipoService;
 
+@Service
 public class EquipoService implements IEquipoService{
 
     @Autowired
@@ -65,5 +67,15 @@ public class EquipoService implements IEquipoService{
             return e;
         }).orElseThrow( () -> new EquipoException("equipo no se encuentra en bd: " + id));
     }
-    
+
+    @Override
+    public List<Equipo> listarEquipoFiltro(String valor) throws EquipoException {
+        if(equipoRepository.findAllFilter(valor).isEmpty()){
+            throw new EquipoException("Error en listar equipos");
+        }
+
+        return equipoRepository.findAllFilter(valor);
+    }
+
 }
+

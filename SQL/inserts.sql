@@ -1,3 +1,12 @@
+--- ROL
+insert into role (created_at, delete_at, estado,updated_at,nombre_rol)
+  values (GETDATE(), null, 'A', null, 'ADMINISTRADOR');
+
+---- USUARIO
+insert into usuario (created_at, delete_at, estado, updated_at, apellido, contrasenia, correo, nombre, usuario_nombre,rol_id ) values
+(GETDATE(), null, 'A', null, 'administrador','123', 'adm@gmail.com', 'Administrador', 'admin', 1);
+
+--- ARBIRO
 INSERT INTO arbitro (created_at, delete_at, estado, updated_at, apellido, contrasenia, correo, nombre, usuario_nombre, categoria, direccion, fecha_nacimiento, nacionalidad, partidos) VALUES
 ('2022-03-10 10:15:00', NULL, 'A', null, 'García', 'contrasenia1', 'garcia1@gmail.com', 'Juan', 'juangarcia', 'fútbol', 'Calle 1, Ciudad 1', '1980-01-01', 'México', 10),
 ('2022-03-09 12:30:00', NULL, 'A', null, 'Gómez', 'contrasenia2', 'gomez2@gmail.com', 'Pedro', 'pedrogomez', 'fútbol', 'Calle 2, Ciudad 1', '1985-05-15', 'Argentina', 15),
@@ -15,8 +24,17 @@ INSERT INTO arbitro (created_at, delete_at, estado, updated_at, apellido, contra
 ('2023-03-11', NULL, 'A', '2023-03-11', 'Díaz', 'contraseña8', 'diaz@gmail.com', 'Marta', 'martad', 'CONMEBOL', 'Calle Principal 456', '1990-03-01', 'Uruguay', 75),
 ('2023-03-11', NULL, 'A', '2023-03-11', 'Martínez', 'contraseña9', 'martinez@gmail.com', 'Javier', 'javierm', 'FIFA', 'Avenida Este 789', '1983-08-12', 'Argentina', 105)
 
-insert into role (created_at, delete_at, estado,updated_at,nombre_rol)
-  values (GETDATE(), null, 'A', null, 'ADMINISTRADOR');
+---- EQUIPO
+INSERT INTO equipo (created_at, delete_at, estado, updated_at, director, nombre)
+VALUES 
+    ('2023-03-18 10:00:00', null, 'A', NULL, 'Juan Pérez', 'Real Madrid'),
+    ('2023-03-18 10:00:01', null, 'A', NULL, 'María González', 'Barcelona'),
+    ('2023-03-18 10:00:02', null, 'A', NULL, 'Pedro Sánchez', 'Manchester United'),
+    ('2023-03-18 10:00:03', null, 'A', NULL, 'Ana Martínez', 'Bayern Munich'),
+    ('2023-03-18 10:00:04', null, 'A', NULL, 'David García', 'PSG'),
+    ('2023-03-18 10:00:05', null, 'A', NULL, 'Laura Rodríguez', 'Liverpool'),
+    ('2023-03-18 10:00:06', null, 'A', NULL, 'Juan González', 'Juventus'),
+    ('2023-03-18 10:00:07', null, 'A', NULL, 'Sara Martínez', 'Real Betis'),
+    ('2023-03-18 10:00:08', null, 'A', NULL, 'Luis Hernández', 'Borussia Dortmund'),
+    ('2023-03-18 10:00:09', null, 'A', NULL, 'Carlos Pérez', 'River Plate');
 
-insert into usuario (created_at, delete_at, estado, updated_at, apellido, contrasenia, correo, nombre, usuario_nombre,rol_id ) values
-(GETDATE(), null, 'A', null, 'administrador','123', 'adm@gmail.com', 'Administrador', 'admin', 1);

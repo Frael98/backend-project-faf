@@ -29,5 +29,46 @@ public class Agenda extends Entidad {
     @JoinColumn(name = "partido_id")
     protected Partido partido_id;
 
+    public Integer getId_agenda() {
+        return Id_agenda;
+    }
+
+    public void setId_agenda(Integer id_agenda) {
+        Id_agenda = id_agenda;
+    }
+
+    public String getLugarPartido() {
+        return lugarPartido;
+    }
+
+    public void setLugarPartido(String lugarPartido) {
+        this.lugarPartido = lugarPartido;
+    }
+
+    public Time getHoraPartido() {
+        return horaPartido;
+    }
+
+    public void setHoraPartido(Time horaPartido) {
+        this.horaPartido = horaPartido;
+    }
+
+    public Date getFechaPartido() {
+        return fechaPartido;
+    }
+
+    public void setFechaPartido(Date fechaPartido) {
+        this.fechaPartido = fechaPartido;
+    }
+
+    public Partido getPartido_id() {
+        return partido_id;
+    }
+
+    public void setPartido_id(Partido partido_id) {
+        this.partido_id = partido_id;
+    }
+
+    
 
 }

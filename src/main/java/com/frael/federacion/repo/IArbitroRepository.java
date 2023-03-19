@@ -16,6 +16,6 @@ public interface IArbitroRepository extends JpaRepository<Arbitro, Integer>{
     @Query( value = "SELECT * FROM ARBITRO A WHERE A.ESTADO <> 'E'", nativeQuery = true)
     public List<Arbitro> findOnlyActive();
 
-  /*   @Query( " exec test;")
-    public List<Arbitro> findByEstado(@Param) */
+    @Query(value = "EXEC test ", nativeQuery = true)
+    public List<Arbitro> findByEstado(@Param("estado") String estado);
 }
