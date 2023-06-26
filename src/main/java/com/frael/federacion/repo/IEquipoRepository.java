@@ -8,12 +8,12 @@ import org.springframework.data.repository.query.Param;
 
 import com.frael.federacion.model.Equipo;
 
-public interface IEquipoRepository extends JpaRepository<Equipo, Integer>{
-    
-    @Query( value = "SELECT * FROM ARBITRO A WHERE A.ESTADO <> 'E'", nativeQuery = true)
+public interface IEquipoRepository extends JpaRepository<Equipo, Integer> {
+
+    @Query(value = "SELECT * FROM EQUIPO E WHERE E.ESTADO <> 'E'", nativeQuery = true)
     public List<Equipo> findOnlyActive();
 
-    @Query( value = "EXEC sp_consulta_equipos :valor ", nativeQuery = true)
+    @Query(value = "EXEC SP_CONSULTA_EQUIPOS :valor ", nativeQuery = true)
     public List<Equipo> findAllFilter(@Param("valor") String valor);
-    
+
 }

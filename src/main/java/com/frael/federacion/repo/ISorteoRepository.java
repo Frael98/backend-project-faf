@@ -10,6 +10,6 @@ import com.frael.federacion.model.Sorteo;
 
 public interface ISorteoRepository extends JpaRepository<Sorteo, Integer> {
     
-    @Query( value = "EXEC SP_CONSULTA_SORTEO :VALOR", nativeQuery = true)
-    public List<Sorteo> findAllFilter(@Param("valor") String valor);
+    @Query( value = "EXEC SP_CONSULTA_SORTEOS :VALOR", nativeQuery = true)
+    public List<Sorteo> findAllFilter(@Param("VALOR") String valor);
 }

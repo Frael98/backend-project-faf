@@ -13,7 +13,7 @@ import jakarta.persistence.OneToOne;
 public class Equipo extends Entidad{
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
-    protected Integer Id_equipo;
+    protected Integer id_equipo;
     @Column
     protected String nombre;
     @Column
@@ -26,11 +26,11 @@ public class Equipo extends Entidad{
     protected Partido partido_local;
 
     public Integer getId_equipo() {
-        return Id_equipo;
+        return id_equipo;
     }
 
     public void setId_equipo(Integer id_equipo) {
-        Id_equipo = id_equipo;
+        this.id_equipo = id_equipo;
     }
 
     public String getNombre() {

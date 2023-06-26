@@ -10,6 +10,6 @@ import com.frael.federacion.model.ActaPartido;
 
 public interface IActaPartidoRepository extends JpaRepository<ActaPartido, Integer>{
     
-    @Query( value = "EXEC SP_CONSULTA_ACTAPARTIDO :VALOR")
-    public List<ActaPartido> findAllFilter(@Param("valor") String valor);
+    @Query( value = "EXEC SP_CONSULTA_ACTAPARTIDOS :VALOR", nativeQuery = true)
+    public List<ActaPartido> findAllFilter(@Param("VALOR") String valor);
 }

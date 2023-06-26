@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,6 +67,22 @@ public class EquipoController {
         return null;
     }
 
+    /**
+     * Ruta eliminar
+     * 
+     * @param id
+     * @return mensaje
+     */
+    @DeleteMapping("/delete/{id}")
+    String eliminarArbitro(@PathVariable Integer id) {
+        try {
+            return equipoService.eliminarEquipo(id);
+        } catch (EquipoException e) {
+            System.out.println("Error en eliminacion del equipo: " + e.getMessage());
+        }
+        return null;
+    }
+    
     @GetMapping("/getEquipo/{id}")
     public Equipo obtenerEquipo(@PathVariable Integer id) {
 
@@ -76,12 +93,8 @@ public class EquipoController {
         }
     }
 
-    /**
-     *
-     * @return Lista de equipos
-     */
     @GetMapping(value = "/getEquipos/{valor}")
-    public List<Equipo> obtnerEquiposFiltro(@PathVariable String valor) {
+    public List<Equipo> obtenerEquiposFiltro(@PathVariable String valor) {
         try {
             return equipoService.listarEquipoFiltro(valor);
         } catch (EquipoException e) {

@@ -11,5 +11,5 @@ import com.frael.federacion.model.Agenda;
 public interface IAgendaRepository extends JpaRepository<Agenda, Integer> {
  
     @Query( value = "EXEC SP_CONSULTA_AGENDAS :VALOR", nativeQuery = true)
-    public List<Agenda> findAllFilter(@Param("valor") String valor);
+    public List<Agenda> findAllFilter(@Param("VALOR") String valor);
 }

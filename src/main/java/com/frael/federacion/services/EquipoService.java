@@ -49,7 +49,7 @@ public class EquipoService implements IEquipoService{
     @Override
     public String eliminarEquipo(Integer id) throws EquipoException {
         if(!equipoRepository.existsById(id)){
-            throw new EquipoException("No equipo existe con id: " + id);
+            throw new EquipoException("No existe equipo con id: " + id);
         }
         equipoRepository.findById(id).map(e -> {
             e.setEstado('E');
