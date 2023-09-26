@@ -45,7 +45,7 @@ public class ActaPartidoService implements IActaPartidoService {
 
     @Override
     public ActaPartido eliminarActaPartido(Integer id) throws ActaException {
-        // TODO Auto-generated method stub
+       
         throw new UnsupportedOperationException("Unimplemented method 'eliminarActaPartido'");
     }
 

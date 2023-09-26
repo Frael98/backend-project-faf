@@ -70,6 +70,11 @@ public class ArbitroService implements IArbitroService {
 
     @Override
     public Arbitro obtenerArbitro(Integer id) throws UserException {
+        
+        if(!arbitroRepository.findById(id).isPresent()){
+            throw new UserException("Arbitro no encontrado");
+        }
+
         return arbitroRepository.findById(id).get();
     }
 
