@@ -1,6 +1,7 @@
 package com.frael.federacion.model;
 
 import java.sql.Date;
+import java.sql.Time;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,6 +27,30 @@ public class ActaPartido extends Entidad {
 
     @Column
     protected Date fechaEmision;
+
+    @Column
+    protected Date hora_inicio;
+
+    @Column
+    protected Date hora_fin;
+
+    @Column
+    protected String equipo_local;
+    @Column
+    protected String equipo_rival;
+
+    @Column
+    protected Time duracion_partido;
+
+    @Column
+    protected int num_gol_equipo_local;
+
+    @Column
+    protected int num_gol_equipo_rival;
+
+    @Column
+    protected String equipoGanador;
+    
     @Column
     protected Integer totalRojas;
     @Column
@@ -100,6 +125,54 @@ public class ActaPartido extends Entidad {
     }
     public void setRivalRojas(Integer rivalRojas) {
         this.rivalRojas = rivalRojas;
+    }
+    public Date getHora_inicio() {
+        return hora_inicio;
+    }
+    public void setHora_inicio(Date hora_inicio) {
+        this.hora_inicio = hora_inicio;
+    }
+    public Date getHora_fin() {
+        return hora_fin;
+    }
+    public void setHora_fin(Date hora_fin) {
+        this.hora_fin = hora_fin;
+    }
+    public String getEquipo_local() {
+        return equipo_local;
+    }
+    public void setEquipo_local(String equipo_local) {
+        this.equipo_local = equipo_local;
+    }
+    public String getEquipo_rival() {
+        return equipo_rival;
+    }
+    public void setEquipo_rival(String equipo_rival) {
+        this.equipo_rival = equipo_rival;
+    }
+    public Time getDuracion_partido() {
+        return duracion_partido;
+    }
+    public void setDuracion_partido(Time duracion_partido) {
+        this.duracion_partido = duracion_partido;
+    }
+    public int getNum_gol_equipo_local() {
+        return num_gol_equipo_local;
+    }
+    public void setNum_gol_equipo_local(int num_gol_equipo_local) {
+        this.num_gol_equipo_local = num_gol_equipo_local;
+    }
+    public int getNum_gol_equipo_rival() {
+        return num_gol_equipo_rival;
+    }
+    public void setNum_gol_equipo_rival(int num_gol_equipo_rival) {
+        this.num_gol_equipo_rival = num_gol_equipo_rival;
+    }
+    public String getEquipoGanador() {
+        return equipoGanador;
+    }
+    public void setEquipoGanador(String equipoGanador) {
+        this.equipoGanador = equipoGanador;
     }
 
     
