@@ -3,6 +3,8 @@ package com.frael.federacion.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,13 +49,13 @@ public class EquipoController {
      * @return Lista de equipos
      */
     @GetMapping(value = "/getEquipos")
-    public List<Equipo> obtenerEquipos() {
+    public ResponseEntity<List<Equipo>> obtenerEquipos() {
         try {
-            return equipoService.listarEquipo();
+            return new ResponseEntity<List<Equipo>>(equipoService.listarEquipos(), HttpStatus.OK);
         } catch (EquipoException e) {
             System.out.println("Error en listar equipo: " + e.getMessage());
         }
-        return null;
+        return ResponseEntity.notFound().build();
     }
 
     @PutMapping(value = "/update/{id}")
@@ -94,12 +96,14 @@ public class EquipoController {
     }
 
     @GetMapping(value = "/getEquipos/{valor}")
-    public List<Equipo> obtenerEquiposFiltro(@PathVariable String valor) {
+    public ResponseEntity<List<Equipo>> obtenerEquiposFiltro(@PathVariable String valor) {
+        List<Equipo> lista;
         try {
-            return equipoService.listarEquipoFiltro(valor);
+            lista = equipoService.listarEquipoFiltro(valor);
+            return new ResponseEntity<List<Equipo>>(lista, HttpStatus.OK);
         } catch (EquipoException e) {
             System.out.println("Error en listar equipos filtro: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        return null;
     }
 }

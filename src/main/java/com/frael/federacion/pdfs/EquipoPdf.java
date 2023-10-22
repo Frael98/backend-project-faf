@@ -50,7 +50,7 @@ public class EquipoPdf {
 
         PdfPTable tabla = new PdfPTable(2);
         try {
-            List<Equipo> equipos = equipoService.listarEquipo();
+            List<Equipo> equipos = equipoService.listarEquipos();
             equipos.forEach(eq -> {
                 tabla.addCell(eq.getDirector());
                 tabla.addCell(eq.getNombre());

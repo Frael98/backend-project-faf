@@ -27,7 +27,7 @@ public class EquipoService implements IEquipoService{
     }
 
     @Override
-    public List<Equipo> listarEquipo() throws EquipoException {
+    public List<Equipo> listarEquipos() throws EquipoException {
         if(equipoRepository.findOnlyActive().isEmpty()){
             throw new EquipoException("Error en listar equipos");
         }

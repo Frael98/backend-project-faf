@@ -14,7 +14,7 @@ public interface IEquipoService {
      */
     public Equipo guardarEquipo(Equipo equipo) throws EquipoException;
 
-    public List<Equipo> listarEquipo() throws EquipoException;
+    public List<Equipo> listarEquipos() throws EquipoException;
 
     public Equipo actualizarEquipo(Equipo equipo, Integer id) throws EquipoException;
 
