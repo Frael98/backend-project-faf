@@ -19,10 +19,10 @@ public class Equipo extends Entidad{
     @Column
     protected String director;
 
-    @OneToOne( mappedBy = "equipoRival", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne( mappedBy = "equipoRival", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     protected Partido partido_rival;
 
-    @OneToOne( mappedBy = "equipoLocal",  cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne( mappedBy = "equipoLocal",  cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     protected Partido partido_local;
 
     public Integer getId_equipo() {

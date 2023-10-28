@@ -50,8 +50,10 @@ public class EquipoController {
      */
     @GetMapping(value = "/getEquipos")
     public ResponseEntity<List<Equipo>> obtenerEquipos() {
+        List<Equipo> lista;
         try {
-            return new ResponseEntity<List<Equipo>>(equipoService.listarEquipos(), HttpStatus.OK);
+            lista = equipoService.listarEquipos();
+            return new ResponseEntity<List<Equipo>>(lista, HttpStatus.OK);
         } catch (EquipoException e) {
             System.out.println("Error en listar equipo: " + e.getMessage());
         }
