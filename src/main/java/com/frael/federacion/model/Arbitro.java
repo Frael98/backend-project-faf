@@ -10,7 +10,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class Arbitro extends EUser {
 
@@ -34,49 +38,5 @@ public class Arbitro extends EUser {
 
     @OneToOne(mappedBy = "arbitroSustituto", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     protected Sorteo arbitro_s_id;
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public String getNacionalidad() {
-        return nacionalidad;
-    }
-
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
-    }
-
-    public String getPartidos() {
-        return partidos;
-    }
-
-    public void setPartidos(String partidos) {
-        this.partidos = partidos;
-    }
-
-    public Integer getId_arbitro() {
-        return id_arbitro;
-    }
-
+    
 }

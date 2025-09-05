@@ -27,10 +27,9 @@ public class AgendaController {
 
     @PostMapping(value = "/save")
     public Agenda guardarAgenda(@RequestBody Agenda agenda, @RequestBody Partido partido) {
-        Partido o = null;
         Agenda tmp = null;
         try {
-            o = partidoService.guardarPartido(partido);
+            partidoService.guardarPartido(partido);
             tmp = agendaService.guardarAgenda(agenda);
         } catch (PartidoException | AgendaException a) {
             System.out.println(a.getMessage());

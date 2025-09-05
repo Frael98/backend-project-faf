@@ -9,7 +9,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import lombok.Setter;
+import lombok.Getter;
 
+@Setter
+@Getter
 @Entity
 public class Sorteo extends Entidad {
 
