@@ -36,56 +36,6 @@ public class Sorteo extends Entidad {
     @Column
     protected Date fechaSorteo;
     
-    
-    public Integer getId_sorteo() {
-        return id_sorteo;
-    }
-
-
-    public void setId_sorteo(Integer id_sorteo) {
-        this.id_sorteo = id_sorteo;
-    }
-
-
-    public Arbitro getArbitroEncargado() {
-        return arbitroEncargado;
-    }
-
-
-    public void setArbitroEncargado(Arbitro arbitroEncargado) {
-        this.arbitroEncargado = arbitroEncargado;
-    }
-
-
-    public Arbitro getArbitroSustituto() {
-        return arbitroSustituto;
-    }
-
-
-    public void setArbitroSustituto(Arbitro arbitroSustituto) {
-        this.arbitroSustituto = arbitroSustituto;
-    }
-
-
-    public Partido getPartido() {
-        return partido;
-    }
-
-
-    public void setPartido(Partido partido) {
-        this.partido = partido;
-    }
-
-
-    public Date getFechaSorteo() {
-        return fechaSorteo;
-    }
-
-
-    public void setFechaSorteo(Date fechaSorteo) {
-        this.fechaSorteo = fechaSorteo;
-    }
-
     public String notificarArbitro() {
         return "";
     }

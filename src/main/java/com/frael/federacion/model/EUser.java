@@ -3,12 +3,16 @@ package com.frael.federacion.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 /*
  * Entidad Usuario
  * 
  */
 
+@Getter
+@Setter
 @Table(name = "USUARIO")
 @MappedSuperclass
 public class EUser extends Entidad {
@@ -23,47 +27,5 @@ public class EUser extends Entidad {
     protected String correo;
     @Column(name = "contrasenia", columnDefinition = "")
     protected String contrasenia;
-    
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
-
     
 }
