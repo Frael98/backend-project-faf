@@ -1,45 +1,31 @@
 package com.frael.federacion.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @MappedSuperclass
 public class Entidad {
     
+    @NotNull
     @Column(name = "createdAt", columnDefinition = "datetime default getdate()", nullable = false)
-    protected final Date createdAt = new Date(System.currentTimeMillis());
+    protected final Timestamp createdAt = new Timestamp(System.currentTimeMillis());
+
+    @NotNull
     @Column(name = "updatedAt", columnDefinition = "datetime")
-    protected Date updatedAt;
+    protected Timestamp updatedAt;
+
+    @NotNull
     @Column(name = "deleteAt", columnDefinition = "datetime")
-    protected Date deletedAt;
+    protected Timestamp deletedAt;
+
+    @NotNull
     @Column(name = "estado", columnDefinition = "varchar(2) default 'A'")
-    protected char estado = 'A';
-
-    public char getEstado() {
-        return estado;
-    }
-
-    public void setEstado(char estado){
-        this.estado = estado;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public Date getUpdateAt() {
-        return updatedAt;
-    }
-
-    public void setUpdateAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public void setDeleteAt(Date deletedAt) {
-        this.deletedAt = deletedAt;
-    }
-
-    
+    protected char estado = 'A';    
 }
