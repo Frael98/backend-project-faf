@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.frael.federacion.exceptions.EquipoException;
 import com.frael.federacion.model.Equipo;
 import com.frael.federacion.services.EquipoService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin
@@ -34,14 +37,13 @@ public class EquipoController {
      * @ready
      */
     @PostMapping(value = "/save")
-    public Equipo guardarEquipo(@RequestBody Equipo entity) {
-
+    public ResponseEntity<?> guardarEquipo(@Valid @RequestBody Equipo entity) { // @Valid trabaja con @NotNull
         try {
-            return equipoService.guardarEquipo(entity);
+            Equipo saveEquipo = equipoService.guardarEquipo(entity);
+            return new ResponseEntity<Equipo>(saveEquipo, HttpStatus.CREATED);
         } catch (EquipoException e) {
-            System.out.println("Error en inserccion de equipo: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
         }
-        return null;
     }
 
     /**
@@ -49,26 +51,24 @@ public class EquipoController {
      * @return Lista de equipos
      */
     @GetMapping(value = "/getEquipos")
-    public ResponseEntity<List<Equipo>> obtenerEquipos() {
+    public ResponseEntity<?> obtenerEquipos() {
         List<Equipo> lista;
         try {
             lista = equipoService.listarEquipos();
             return new ResponseEntity<List<Equipo>>(lista, HttpStatus.OK);
         } catch (EquipoException e) {
-            System.out.println("Error en listar equipo: " + e.getMessage());
+            return ResponseEntity.status(404).body(e.getMessage());
         }
-        return ResponseEntity.notFound().build();
     }
 
     @PutMapping(value = "/update/{id}")
-    public Equipo actualizarEquipo(@PathVariable Integer id, @RequestBody Equipo entity) {
-
+    public ResponseEntity<?> actualizarEquipo(@PathVariable Integer id, @Valid @RequestBody Equipo entity) {
         try {
-            return equipoService.actualizarEquipo(entity, id);
+            Equipo nuevoEquipo = equipoService.actualizarEquipo(entity, id);
+            return new ResponseEntity<Equipo>(nuevoEquipo, HttpStatus.OK);
         } catch (EquipoException e) {
-            System.out.println("Error en actualizar equipo: " + e.getMessage());
+            return ResponseEntity.status(404).body(e.getMessage());
         }
-        return null;
     }
 
     /**
@@ -78,34 +78,40 @@ public class EquipoController {
      * @return mensaje
      */
     @DeleteMapping("/delete/{id}")
-    String eliminarArbitro(@PathVariable Integer id) {
+    ResponseEntity<?> eliminarArbitro(@PathVariable Integer id) {
         try {
-            return equipoService.eliminarEquipo(id);
+            String message = equipoService.eliminarEquipo(id);
+            return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (EquipoException e) {
-            System.out.println("Error en eliminacion del equipo: " + e.getMessage());
+            // System.out.println("Error en eliminacion del equipo: " + e.getMessage());
+            return ResponseEntity.status(304).body(e.getMessage());
         }
-        return null;
     }
-    
-    @GetMapping("/getEquipo/{id}")
-    public Equipo obtenerEquipo(@PathVariable Integer id) {
 
+    /**
+     * Obtener un equipo por id
+     * 
+     * @param id
+     * @return Equipo
+     */
+    @GetMapping("/getEquipo/{id}")
+    public ResponseEntity<?> obtenerEquipo(@PathVariable Integer id) {
         try {
-            return equipoService.obtenerEquipo(id);
+            Equipo equipoObtenido = equipoService.obtenerEquipo(id);
+            return new ResponseEntity<>(equipoObtenido, HttpStatus.ACCEPTED);
         } catch (EquipoException e) {
-            return null;
+            return ResponseEntity.status(404).body(e.getMessage());
         }
     }
 
     @GetMapping(value = "/getEquipos/{valor}")
-    public ResponseEntity<List<Equipo>> obtenerEquiposFiltro(@PathVariable String valor) {
+    public ResponseEntity<?> obtenerEquiposFiltro(@PathVariable String valor) {
         List<Equipo> lista;
         try {
             lista = equipoService.listarEquipoFiltro(valor);
             return new ResponseEntity<List<Equipo>>(lista, HttpStatus.OK);
         } catch (EquipoException e) {
-            System.out.println("Error en listar equipos filtro: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 }
