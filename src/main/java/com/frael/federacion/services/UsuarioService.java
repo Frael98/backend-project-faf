@@ -1,6 +1,6 @@
 package com.frael.federacion.services;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +58,7 @@ public class UsuarioService implements IUsuarioService {
             e.setApellido(newAdministrador.getApellido());
             e.setCorreo(newAdministrador.getCorreo());
             e.setUsuario(newAdministrador.getUsuario());
-            e.setUpdateAt(new Date(System.currentTimeMillis()));
+            e.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
             e.setContrasenia(newAdministrador.getContrasenia());
             return admRepository.save(e);
         }).orElseThrow(() -> new UserException("No fue posible encontrar o no existe con id: " + id));
@@ -75,7 +75,7 @@ public class UsuarioService implements IUsuarioService {
         if (!admRepository.findById(id).isEmpty()) {
 
             return admRepository.findById(id).map((e) -> {
-                e.setDeleteAt(new Date(System.currentTimeMillis()));
+                e.setDeletedAt(new Timestamp(System.currentTimeMillis()));
                 e.setEstado('E');
 
                 return admRepository.save(e);

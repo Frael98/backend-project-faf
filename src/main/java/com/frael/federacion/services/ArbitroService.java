@@ -1,6 +1,6 @@
 package com.frael.federacion.services;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class ArbitroService implements IArbitroService {
     @Override
     public List<Arbitro> listarArbitros() throws UserException {
         if (arbitroRepository.findOnlyActive().isEmpty()) {
-            throw new UserException("no se encontraron datos de Arbitros");
+            throw new UserException("no se encontraron datos de arbitros");
         }
         return arbitroRepository.findOnlyActive();
     }
@@ -43,24 +43,24 @@ public class ArbitroService implements IArbitroService {
             a.setUsuario(newArbitro.getUsuario());
             a.setCorreo(newArbitro.getCorreo());
             a.setContrasenia(newArbitro.getContrasenia());
-            a.setUpdateAt(new Date(System.currentTimeMillis()));
+            a.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
             a.setDireccion(newArbitro.getDireccion());
             a.setCategoria(newArbitro.getCategoria());
             a.setNacionalidad(newArbitro.getNacionalidad());
             a.setPartidos(newArbitro.getPartidos());
             return arbitroRepository.save(a);
-        }).orElseThrow(() -> new UserException("Arbitro no Encontrado"));
+        }).orElseThrow(() -> new UserException("Arbitro no encontrado o no existe"));
 
     }
 
     @Override
     public String eliminarArbitro(Integer id) throws UserException {
         if (!arbitroRepository.existsById(id)) {
-            throw new UserException("El Arbitro no existe");
+            throw new UserException("El arbitro no existe");
         }
         arbitroRepository.findById(id).map(a -> {
             a.setEstado('E');
-            a.setDeleteAt(new Date(System.currentTimeMillis()));
+            a.setDeletedAt(new Timestamp(System.currentTimeMillis()));
 
             return arbitroRepository.save(a);
         }).orElseThrow(() -> new UserException("No se pudo eliminar Arbitro"));
@@ -94,6 +94,6 @@ public class ArbitroService implements IArbitroService {
                 return e;
             }
             return null;
-        }).orElseThrow(() -> new UserException("Arbitro no se encontro"));
+        }).orElseThrow(() -> new UserException("Verificar si las credenciales son correctas"));
     }
 }

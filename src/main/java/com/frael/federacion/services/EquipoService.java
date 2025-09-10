@@ -1,6 +1,6 @@
 package com.frael.federacion.services;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,9 @@ import com.frael.federacion.model.Equipo;
 import com.frael.federacion.repo.IEquipoRepository;
 import com.frael.federacion.services.Interfaces.IEquipoService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class EquipoService implements IEquipoService{
 
@@ -20,8 +23,9 @@ public class EquipoService implements IEquipoService{
     @Override
     public Equipo guardarEquipo(Equipo equipo) throws EquipoException {
         Equipo nuevoEquipo = equipoRepository.save(equipo);
-        if(nuevoEquipo.equals(null)){
-            throw new EquipoException("Error al guardar equipo");
+        log.info("Guardando equipo {}", equipo.getNombre());
+        if(nuevoEquipo.getNombre() == null){
+            throw new EquipoException("Nombre de Equipo no puede ser vacio");
         }
         return nuevoEquipo;
     }
@@ -29,7 +33,7 @@ public class EquipoService implements IEquipoService{
     @Override
     public List<Equipo> listarEquipos() throws EquipoException {
         if(equipoRepository.findOnlyActive().isEmpty()){
-            throw new EquipoException("Error en listar equipos");
+            throw new EquipoException("No existen registros activos o inactivos");
         }
 
         return equipoRepository.findOnlyActive();
@@ -41,9 +45,9 @@ public class EquipoService implements IEquipoService{
         return equipoRepository.findById(id).map(e -> {
             e.setDirector(equipo.getDirector());
             e.setNombre(equipo.getNombre());
-            e.setUpdateAt(new Date(System.currentTimeMillis()));
+            e.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
             return equipoRepository.save(e);
-        }).orElseThrow( () -> new EquipoException("No fue posible encontrar equipo o no existe con id: " + id));
+        }).orElseThrow( () -> new EquipoException("No fue posible encontrar equipo o no existe, id: " + id));
     }
 
     @Override
@@ -53,7 +57,7 @@ public class EquipoService implements IEquipoService{
         }
         equipoRepository.findById(id).map(e -> {
             e.setEstado('E');
-            e.setDeleteAt(new Date(System.currentTimeMillis()));
+            e.setDeletedAt(new Timestamp(System.currentTimeMillis()));
 
             return equipoRepository.save(e);
         });
@@ -62,16 +66,15 @@ public class EquipoService implements IEquipoService{
 
     @Override
     public Equipo obtenerEquipo(Integer id) throws EquipoException {
-    
         return equipoRepository.findById(id).map(e -> {
             return e;
-        }).orElseThrow( () -> new EquipoException("equipo no se encuentra en bd: " + id));
+        }).orElseThrow( () -> new EquipoException("Equipo no se encuentra en bd: " + id));
     }
 
     @Override
     public List<Equipo> listarEquipoFiltro(String valor) throws EquipoException {
         if(equipoRepository.findAllFilter(valor).isEmpty()){
-            throw new EquipoException("Error en listar equipos");
+            throw new EquipoException("No existen registros de equipos con este filtro");
         }
 
         return equipoRepository.findAllFilter(valor);

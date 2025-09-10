@@ -1,6 +1,6 @@
 package com.frael.federacion.services;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class AgendaService implements IAgendaService {
     @Override
     public Agenda actualizarAgenda(Agenda agenda, Integer id) throws AgendaException {
         return agendaRepository.findById(id).map( a -> {
-            a.setUpdateAt(new Date(System.currentTimeMillis()));
+            a.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
             a.setLugarPartido(agenda.getLugarPartido());
             a.setFechaPartido(agenda.getFechaPartido());
             a.setHoraPartido(agenda.getHoraPartido());
@@ -51,7 +51,7 @@ public class AgendaService implements IAgendaService {
         
         return agendaRepository.findById(id).map( a -> {
             a.setEstado('E');
-            a.setDeleteAt(new Date(System.currentTimeMillis()));
+            a.setDeletedAt(new Timestamp(System.currentTimeMillis()));
             return agendaRepository.save(a);
         }).orElseThrow( () -> new AgendaException(""));
     }
