@@ -19,6 +19,12 @@ import com.frael.federacion.exceptions.UserException;
 import com.frael.federacion.model.Arbitro;
 import com.frael.federacion.services.ArbitroService;
 
+import jakarta.validation.Valid;
+
+/**
+ * @author Flavio Campos
+ * @since 1.0.0
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/arbitro")
@@ -29,49 +35,39 @@ public class ArbitroController {
 
     /**
      * Guardar Arbitro
-     * retorna Arbitro
      * 
+     * @param Arbitro arbitro a ser guardado
      * @ready
      */
-    @PostMapping(value = "/save", consumes = "application/json", produces = "application/json")
-    public Arbitro saveArbitro(@RequestBody Arbitro arbitro) {
-        try {
-            return arbitroService.guardarArbitro(arbitro);
-        } catch (UserException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    @PostMapping(value = "/save") // consumes = "application/json", produces = "application/json"
+    public ResponseEntity<Arbitro> saveArbitro(@Valid @RequestBody Arbitro arbitro) throws UserException {
+        Arbitro nuevoArbitro = arbitroService.guardarArbitro(arbitro);
+        return new ResponseEntity<>(nuevoArbitro, HttpStatus.CREATED);
     }
 
     /**
      * Obtener todos los Arbitros
+     * 
+     * @return List<Arbitros> lista de arbitros
      */
     @GetMapping(value = "/getArbitros")
-    public ResponseEntity<List<Arbitro>> getArbitros() {
-        List<Arbitro> lista;
-        try {
-            lista = arbitroService.listarArbitros();
-            return new ResponseEntity<List<Arbitro>>(lista, HttpStatus.OK);
-        } catch (UserException e) {
-            lista = null;
-            System.out.println(e.getMessage());
-            return new ResponseEntity<List<Arbitro>>(lista, HttpStatus.OK);
-        }
+    public ResponseEntity<List<Arbitro>> getArbitros() throws UserException {
+        List<Arbitro> lista = arbitroService.listarArbitros();
+        return new ResponseEntity<List<Arbitro>>(lista, HttpStatus.OK);
     }
 
     /**
      * Actualizar un Arbitro
      * 
-     * @id
+     * @param String id del arbitro
+     * @param Arbitro nuevo arbitro
      */
     @PutMapping(value = "/update/{id}")
-    public Arbitro updateArbitro(@PathVariable String id, @RequestBody Arbitro newArbitro) {
-        try {
-            return arbitroService.actualizarArbitro(newArbitro, Integer.parseInt(id));
-        } catch (Exception e) {
-            System.out.println("Error en actualizacion del Arbitro: " + e.getMessage());
-        }
-        return null;
+    public ResponseEntity<Arbitro> updateArbitro(@PathVariable String id, @Valid @RequestBody Arbitro newArbitro)
+            throws UserException {
+
+        Arbitro arbitro = arbitroService.actualizarArbitro(newArbitro, Integer.parseInt(id));
+        return new ResponseEntity<>(arbitro, HttpStatus.NO_CONTENT);
     }
 
     /**
@@ -81,45 +77,36 @@ public class ArbitroController {
      * @return mensaje
      */
     @DeleteMapping("/delete/{id}")
-    String eliminarArbitro(@PathVariable Integer id) {
-        try {
-            return arbitroService.eliminarArbitro(id);
-        } catch (UserException e) {
-            System.out.println("Error en eliminacion del Arbitro: " + e.getMessage());
-        }
-        return null;
+    ResponseEntity<String> eliminarArbitro(@PathVariable Integer id) throws UserException {
+
+        String message = arbitroService.eliminarArbitro(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     /**
      * Obtener arbitro inicio sesion
      * 
-     * @param id
+     * @apiNote No se pone @Valid para que no exiga validacion de los otros campos
+     * @param Arbitro arbitro
      * @return arbitro
      */
-    @PostMapping(value = "/getArbitro")
-    public ResponseEntity<Arbitro> getArbitroUsuario(@RequestBody Arbitro user) {
-        Arbitro arbitro;
-        try {
-            arbitro = arbitroService.obtenerArbitroSesion(user);
-            return new ResponseEntity<Arbitro>(arbitro, HttpStatus.OK);
-        } catch (UserException e) {
-            arbitro = null;
-            System.out.println(e.getMessage());
-            return new ResponseEntity<Arbitro>(arbitro, HttpStatus.OK);
-        }
+    @PostMapping(value = "/loginArbitro")
+    public ResponseEntity<Arbitro> getArbitroUsuario(@RequestBody Arbitro user) throws UserException {
+
+        Arbitro arbitro = arbitroService.obtenerArbitroSesion(user);
+        return new ResponseEntity<Arbitro>(arbitro, HttpStatus.OK);
     }
 
+    /**
+     * Obtener un arbitro por id
+     * 
+     * @param Integer id del arbitro
+     * @return ResponseEntity<Arbitro>
+     */
     @GetMapping("/getArbitro/{id}")
-    public Arbitro getArbitro(@PathVariable Integer id) {
-        Arbitro arbitro;
-        try {
-            arbitro = arbitroService.obtenerArbitro(id);
-            return arbitro;
-        } catch (UserException e) {
-            arbitro = null;
-            System.out.println(e.getMessage());
-            return arbitro;
-        }
+    public ResponseEntity<Arbitro> getArbitro(@PathVariable Integer id) throws UserException {
+        Arbitro arbitro = arbitroService.obtenerArbitro(id);
+        return new ResponseEntity<>(arbitro, HttpStatus.FOUND);
     }
 
 }
