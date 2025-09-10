@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
      * Implementacion de prueba respuesta personalizada con
      * clase ApiResponse
      * @param ex
-     * @return
+     * @return ApiResponse
      */
     @ExceptionHandler(UserException.class)
     public ResponseEntity<ApiResponse<?>> handlerExceptionArbitro(UserException ex) {
