@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,14 +23,20 @@ public class Arbitro extends EUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Autoincremental
     protected Integer id_arbitro;
 
+    @NotNull(message = "Debe ingresar la dirección")
     @Column(columnDefinition = "")
     protected String direccion;
+
+    @NotNull(message = "Debe ingresar la categoria")
     @Column(columnDefinition = "")
     protected String categoria;
+    
     @Column(columnDefinition = "")
     protected Date fechaNacimiento;
+
     @Column(columnDefinition = "")
     protected String nacionalidad;
+    
     @Column(columnDefinition = "")
     protected String partidos;
 
